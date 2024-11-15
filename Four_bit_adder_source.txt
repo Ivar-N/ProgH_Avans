@@ -1,20 +1,20 @@
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Company: Avans
+-- Engineer: Ivar Nouwens, Wouter Hendrikx
 -- 
 -- Create Date: 15.11.2024 13:53:33
--- Design Name: 
+-- Design Name: -
 -- Module Name: Four_bit_adder - Behavioral
--- Project Name: 
--- Target Devices: 
--- Tool Versions: 
--- Description: 
+-- Project Name: Four Bit Adder
+-- Target Devices: -
+-- Tool Versions: 2024.1
+-- Description: -
 -- 
--- Dependencies: 
+-- Dependencies: -
 -- 
--- Revision:
+-- Revision: -
 -- Revision 0.01 - File Created
--- Additional Comments:
+-- Additional Comments: -
 -- 
 ----------------------------------------------------------------------------------
 
@@ -22,6 +22,8 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
+
+-- Create the entity Four_bit_adder with all the necessary ports
  entity Four_bit_adder is
 	Port ( A0 : in STD_LOGIC;
            A1 : in STD_LOGIC;
@@ -39,9 +41,10 @@ use IEEE.STD_LOGIC_1164.ALL;
            Cout : out STD_LOGIC);
    END Four_bit_adder;
   
-
+-- Describe the archtitecture
 architecture Behavioral of Four_bit_adder is
 
+-- Add the component FullAdder
    COMPONENT FullAdder
     Port ( A : in STD_LOGIC;
            B : in STD_LOGIC;
@@ -50,10 +53,12 @@ architecture Behavioral of Four_bit_adder is
            Cout : out STD_LOGIC);
    END COMPONENT;
    
+-- Define singals for Carry out
    Signal Cout0, Cout1, Cout2: STD_LOGIC;
    
 begin
 
+-- Instances of the Full Adder component
    Fa1: FullAdder PORT MAP(
         A => A0, 
         B => B0,
