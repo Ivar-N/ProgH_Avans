@@ -1,3 +1,24 @@
+----------------------------------------------------------------------------------
+-- Company: Avans
+-- Engineer: Ivar Nouwens, Wouter Hendrikx
+-- 
+-- Create Date: 15.11.2024 13:53:33
+-- Design Name: -
+-- Module Name: FullAdder_TB - Behavioral
+-- Project Name: FullAdder_TB
+-- Target Devices: -
+-- Tool Versions: 2024.1
+-- Description: -
+-- 
+-- Dependencies: -
+-- 
+-- Revision: -
+-- Revision 0.01 - File Created
+-- Additional Comments: -
+-- 
+-----------------------------------------------------------------------------------
+
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 USE ieee.numeric_std.ALL;
@@ -7,8 +28,10 @@ USE UNISIM.Vcomponents.ALL;
 ENTITY FullAdder_TB IS
 END FullAdder_TB;
 
+-- Describe the archtitecture
 ARCHITECTURE behavioral OF FullAdder_TB IS 
 
+-- Add the component FullAdder
   COMPONENT FullAdder
     Port ( A : in STD_LOGIC;
            B : in STD_LOGIC;
@@ -16,17 +39,14 @@ ARCHITECTURE behavioral OF FullAdder_TB IS
            S : out STD_LOGIC;
            Cout : out STD_LOGIC);
    END COMPONENT;
-
- SIGNAL A     :   STD_LOGIC;
- SIGNAL B     :   STD_LOGIC;
- SIGNAL Cin   :   STD_LOGIC;
- SIGNAL S     :   STD_LOGIC;
- SIGNAL Cout  :   STD_LOGIC;
+   
+-- Define singals
+ SIGNAL A, B, Cin, S, Cout  :   STD_LOGIC;
  SIGNAL OK    : boolean := true; -- Signal for test result tracking
  
  BEGIN
 
-   -- Instance of the Full Adder component
+-- Instance of the Full Adder component
    UUT: FullAdder PORT MAP(
         A => A, 
         B => B, 
@@ -35,7 +55,7 @@ ARCHITECTURE behavioral OF FullAdder_TB IS
         Cout => Cout
    );
    
-   -- Testcase process
+-- Testcase process
    tb : PROCESS
         variable S_t    : STD_LOGIC;
         variable Cout_t : STD_LOGIC;
@@ -92,10 +112,12 @@ ARCHITECTURE behavioral OF FullAdder_TB IS
                     S_t := '1';
                     Cout_t := '1';
         end case;
+        
+-- Wait for signal propagation
+        wait for 5 ns;
 
-        wait for 5 ns; -- Wait for signal propagation
 
-        -- Check the results
+-- Check the results
         IF S /= S_t THEN
             OK <= false; -- Test fails if S does not match
         END IF;
@@ -103,10 +125,12 @@ ARCHITECTURE behavioral OF FullAdder_TB IS
         IF Cout /= Cout_t THEN
             OK <= false; -- Test fails if Cout does not match
         END IF;
-
-    end loop; -- End of test loop
-
-    WAIT; -- Stop the simulation
+        
+-- End of test loop
+    end loop;
+    
+-- Stop the simulation
+    WAIT; 
 
    END PROCESS;
 
