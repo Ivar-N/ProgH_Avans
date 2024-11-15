@@ -1,0 +1,113 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+LIBRARY UNISIM;
+USE UNISIM.Vcomponents.ALL;
+
+ENTITY FullAdder_TB IS
+END FullAdder_TB;
+
+ARCHITECTURE behavioral OF FullAdder_TB IS 
+
+  COMPONENT FullAdder
+    Port ( A : in STD_LOGIC;
+           B : in STD_LOGIC;
+           Cin : in STD_LOGIC;
+           S : out STD_LOGIC;
+           Cout : out STD_LOGIC);
+   END COMPONENT;
+
+ SIGNAL A     :   STD_LOGIC;
+ SIGNAL B     :   STD_LOGIC;
+ SIGNAL Cin   :   STD_LOGIC;
+ SIGNAL S     :   STD_LOGIC;
+ SIGNAL Cout  :   STD_LOGIC;
+ SIGNAL OK    : boolean := true; -- Signal for test result tracking
+ 
+ BEGIN
+
+   -- Instance of the Full Adder component
+   UUT: FullAdder PORT MAP(
+        A => A, 
+        B => B, 
+        Cin => Cin,
+        S => S, 
+        Cout => Cout
+   );
+   
+   -- Testcase process
+   tb : PROCESS
+        variable S_t    : STD_LOGIC;
+        variable Cout_t : STD_LOGIC;
+
+   BEGIN
+   for Index in 0 to 7 loop
+		case Index is
+                when 0 => 
+                    A <= '0';
+                    B <= '0'; 
+                    Cin <= '0';
+                    S_t := '0';
+                    Cout_t := '0';
+                when 1 => 
+                    A <= '1';
+                    B <= '0'; 
+                    Cin <= '0';
+                    S_t := '1';
+                    Cout_t := '0';
+                when 2 => 
+                    A <= '0';
+                    B <= '1'; 
+                    Cin <= '0';
+                    S_t := '1';
+                    Cout_t := '0';
+                when 3 => 
+                    A <= '1';
+                    B <= '1'; 
+                    Cin <= '0';
+                    S_t := '0';
+                    Cout_t := '1';
+                when 4 => 
+                    A <= '0';
+                    B <= '0'; 
+                    Cin <= '1';
+                    S_t := '1';
+                    Cout_t := '0';
+                when 5 => 
+                    A <= '1';
+                    B <= '0'; 
+                    Cin <= '1';
+                    S_t := '0';
+                    Cout_t := '1';
+                when 6 => 
+                    A <= '0';
+                    B <= '1'; 
+                    Cin <= '1';
+                    S_t := '0';
+                    Cout_t := '1';
+                when 7 => 
+                    A <= '1';
+                    B <= '1'; 
+                    Cin <= '1';
+                    S_t := '1';
+                    Cout_t := '1';
+        end case;
+
+        wait for 5 ns; -- Wait for signal propagation
+
+        -- Check the results
+        IF S /= S_t THEN
+            OK <= false; -- Test fails if S does not match
+        END IF;
+        
+        IF Cout /= Cout_t THEN
+            OK <= false; -- Test fails if Cout does not match
+        END IF;
+
+    end loop; -- End of test loop
+
+    WAIT; -- Stop the simulation
+
+   END PROCESS;
+
+END behavioral;

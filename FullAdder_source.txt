@@ -1,0 +1,41 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: 
+-- 
+-- Create Date: 13.11.2024 16:07:36
+-- Design Name: 
+-- Module Name: FullAdder - Behavioral
+-- Project Name: 
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
+entity FullAdder is
+    Port ( A : in STD_LOGIC;
+           B : in STD_LOGIC;
+           Cin : in STD_LOGIC;
+           S : out STD_LOGIC;
+           Cout : out STD_LOGIC);
+end FullAdder;
+
+architecture Behavioral of FullAdder is
+
+--Full adder
+begin
+    S <= (A xor B) xor Cin;
+    Cout <= (A and B) or (A and Cin) or (B and Cin);
+
+
+end Behavioral;
