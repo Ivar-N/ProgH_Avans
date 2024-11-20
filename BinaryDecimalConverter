@@ -1,0 +1,61 @@
+----------------------------------------------------------------------------------
+-- Company: Avans
+-- Engineer: Wouter Hendrikx, Ivar Nouwens
+-- 
+-- Create Date: 20.11.2024 14:33:04
+-- Design Name: 
+-- Module Name: BinaryDecimal - Behavioral
+-- Project Name: Display
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity BinaryDecimal is
+    Port ( A0 : in STD_LOGIC;
+           A1 : in STD_LOGIC;
+           A2 : in STD_LOGIC;
+           A3 : in STD_LOGIC;
+           Cout : in STD_LOGIC;
+           S_integer : out integer
+    );       
+
+end BinaryDecimal;
+
+architecture Behavioral of BinaryDecimal is
+
+
+
+begin
+    Process(A0, A1, A2, A3, Cout)
+    
+    variable Binary_IN : std_logic_vector(7 downto 0);
+    variable temp_decimal : integer;
+    
+    begin
+    
+    --fill in Binary_IN
+    Binary_IN := '0' & '0' & '0' & Cout & A3 & A2 & A1 & A0;
+    
+   --convert to decimal
+   temp_decimal := TO_INTEGER(unsigned(Binary_IN));
+   
+  --Set temp value to output
+   S_integer <= temp_decimal;
+   
+   end process;
+    
+    
+end Behavioral;
