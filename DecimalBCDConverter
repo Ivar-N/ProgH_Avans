@@ -1,0 +1,76 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Engineer: Wouter Hendrikx, Ivar Nouwens
+-- 
+-- Create Date: 20.11.2024 15:13:30
+-- Design Name: 
+-- Module Name: DecimalBCD - Behavioral
+-- Project Name: Display
+-- Target Devices: 
+-- Tool Versions: 
+-- Description: 
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
+
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity DecimalBCD is
+    Port ( Decimal_IN : in integer;
+           S0 : out STD_LOGIC;
+           S1 : out STD_LOGIC;
+           S2 : out STD_LOGIC;
+           S3 : out STD_LOGIC;
+           T0 : out STD_LOGIC;
+           T1 : out STD_LOGIC;
+           T2 : out STD_LOGIC;
+           T3 : out STD_LOGIC);
+end DecimalBCD;
+
+architecture Behavioral of DecimalBCD is
+
+begin
+
+    process(Decimal_IN)
+        variable Decimal_Tien : integer;
+        variable Decimal_Een : integer;
+        Variable BCD_Tien_t : unsigned(3 downto 0);
+        Variable BCD_Een_t : unsigned(3 downto 0);
+        Variable BCD_Tien : STD_LOGIC_VECTOR(3 downto 0);
+        Variable BCD_Een : STD_LOGIC_VECTOR(3 downto 0);
+
+    begin
+        --splits decimal number into single digits
+        Decimal_Tien := Decimal_IN / 10;
+        Decimal_Een := Decimal_IN mod 10;
+        
+        --Converts single digits in to temporary unsigned
+        BCD_Tien_t := TO_UNSIGNED(Decimal_TIEN, 4);
+        BCD_Een_t := TO_UNSIGNED(Decimal_Een, 4);
+        
+        --Converts unsigned variables to logic variables
+        BCD_Tien := STD_LOGIC_VECTOR(BCD_Tien_t);
+        BCD_Een := STD_LOGIC_VECTOR(BCD_Een_t);
+        
+        --Defines seperate output bits
+        S0 <= BCD_Een(0);
+        S1 <= BCD_Een(1);
+        S2 <= BCD_Een(2);
+        S3 <= BCD_Een(3);
+        
+        T0 <= BCD_Tien(0);
+        T1 <= BCD_Tien(1);
+        T2 <= BCD_Tien(2);
+        T3 <= BCD_Tien(3);
+        
+    end process;
+    
+end Behavioral;
